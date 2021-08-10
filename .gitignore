@@ -2,6 +2,8 @@
 #
 # SPDX-License-Identifier: No License selected
 
+# project
+private_settings.py
 
 # pycharm
 .idea/
