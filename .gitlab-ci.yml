@@ -4,6 +4,7 @@
 
 stages:
   - setup
+  - test
 
 setup:
   image: python:3.9
@@ -13,5 +14,16 @@ setup:
     - cd gitcalendar_webservice
     - cp gitcalendar_webservice/private_settings.py.example gitcalendar_webservice/private_settings.py
     - python manage.py migrate
+  tags:
+    - docker
+
+tests:
+  image: python:3.9
+  stage: test
+  script:
+    - pip install -r requirements.txt
+    - cd gitcalendar_webservice
+    - cp gitcalendar_webservice/private_settings.py.example gitcalendar_webservice/private_settings.py
+    - python manage.py test
   tags:
     - docker
