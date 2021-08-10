@@ -1,3 +1,17 @@
 # SPDX-FileCopyrightText: 2021 German Aerospace Center (DLR)
 #
 # SPDX-License-Identifier: No License selected
+
+stages:
+  - setup
+
+setup:
+  image: python:3.9
+  stage: setup
+  script:
+    - pip install -r requirements.txt
+    - cd gitcalendar_webservice
+    - cp gitcalendar_webservice/private_settings.py.example gitcalendar_webservice/private_settings.py
+    - python manage.py migrate
+  tags:
+    - docker
