@@ -5,6 +5,10 @@
 {% block content %}
 {% if user.is_authenticated %}
     Hi {{ user.username }}!
+    <p><a href="{% url 'core:user.gitlabapi.list' user.pk %}">Manage Your GitLab API Configurations</a></p>
+    {% if user.is_superuser %}
+        <p><a href="{% url 'core:all.gitlabapi.list' %}">Manage all GitLab API Configurations</a></p>
+    {% endif %}
     <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
   <p>You are not logged in</p>
