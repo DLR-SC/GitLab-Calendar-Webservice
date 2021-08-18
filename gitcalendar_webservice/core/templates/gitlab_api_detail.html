@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>GitLab API Detail</h2>
+    <ul>
+        <li>{{ object.api_name }}</li>
+    <li> {{ object.url }}</li>
+    <li> {{ object.user.username }}</li>
+    </ul>
+{% endblock %}
