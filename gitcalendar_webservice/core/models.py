@@ -14,10 +14,13 @@ class GitLabAPI(models.Model):
 
 
 class CalendarConfiguration(models.Model):
-    config_name = models.CharField(max_length=20)
     api = models.ForeignKey(GitLabAPI, on_delete=models.CASCADE)
-    only_issues = models.BooleanField(verbose_name="Only Issues")
-    only_milestones = models.BooleanField(verbose_name="Only Milestones")
+    user = models.ForeignKey(global_settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    config_name = models.CharField(max_length=100)
+    only_issues = models.BooleanField(verbose_name="Only issues")
+    only_milestones = models.BooleanField(verbose_name="Only milestones")
+    combined = models.BooleanField(verbose_name="Combined calendar", default=False)
+    reminder = models.FloatField(verbose_name="Reminder", default=0)
 
     def __str__(self):
         return self.config_name
