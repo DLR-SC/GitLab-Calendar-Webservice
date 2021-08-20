@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}Home{% endblock %}
 
 {% block content %}
@@ -8,10 +8,12 @@
     <p><a href="{% url 'core:user.gitlabapi.list' user.pk %}">Manage Your GitLab API Configurations</a></p>
     {% if user.is_superuser %}
         <p><a href="{% url 'core:all.gitlabapi.list' %}">Manage all GitLab API Configurations</a></p>
+        <p><a href="{% url 'admin:index' %}">Go to admin panel</a></p>
     {% endif %}
     <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
   <p>You are not logged in</p>
-  <a href="{% url 'login' %}">Log In</a>
+    <p><a href="{% url 'login' %}">Log In</a></p>
+    <p><a href="{% url 'core:signup' %}">Sign up</a></p>
 {% endif %}
 {% endblock %}

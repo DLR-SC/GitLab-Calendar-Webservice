@@ -1,4 +1,24 @@
 <form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
+    <div class="input">
+        <input type="hidden" class="form-control" id="userInput" name="userInput"
+        value="{{ username }}" style="width: 100%">
+
+        <label for="api_nameInput" class="form-label"><strong>API name</strong></label>
+        <input type="text" class="form-control" id="api_nameInput" name="api_nameInput"
+        value="{{ api_name }}" style="width: 100%">
+        <div class="form-text" style="font-size: 12px;">Enter a name for your API</div>
+
+        <label for="urlInput" class="form-label"><strong>URL</strong></label>
+        <input type="url" class="form-control" id="urlInput" name="urlInput"
+        value="{{ url }}" style="width: 100%">
+        <div class="form-text" style="font-size: 12px;">Enter a URL to connect to</div>
+
+        <label for="gitlab_api_tokenInput" class="form-label"><strong>GitLab API token</strong></label>
+        <input type="text" class="form-control" id="gitlab_api_tokenInput" name="gitlab_api_tokenInput"
+        value="{{ gitlab_api_token }}" style="width: 100%">
+        <div class="form-text" style="font-size: 12px;">Enter your token</div>
+
+        <button type="submit">Save</button>
+        <button type="reset">Reset</button>
+    </div>
 </form>
