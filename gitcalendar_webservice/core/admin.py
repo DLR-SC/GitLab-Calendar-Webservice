@@ -23,7 +23,7 @@ class GitLabAPIAdmin(admin.ModelAdmin):
 
 class CalendarConfigurationAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['config_name', 'api', 'user']}),
+        (None, {'fields': ['config_name', 'api', 'user', 'projects', 'groups']}),
         ('Further information', {
             'classes': ['collapse'],
             'fields': ['only_issues', 'only_milestones', 'combined']
