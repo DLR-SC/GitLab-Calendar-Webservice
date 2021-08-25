@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>GitLab API Detail</h2>
+
+    <table style="width: 20%">
+    <tr>
+        <th style="text-align:left">API name</th>
+        <td>{{ object.api_name }}</td>
+    </tr>
+    <tr>
+        <th style="text-align:left">User</th>
+        <td>{{ object.user.username }}</td>
+    </tr>
+    <tr>
+        <th style="text-align:left">URL</th>
+        <td>{{ object.url }}</td>
+    </tr>
+    <tr>
+        <th style="text-align:left">GitLab API token</th>
+        <td>{{ object.gitlab_api_token }}</td>
+    </tr>
+    </table>
+
+    <p><a href="{% url 'core:gitlabapi.update' object.pk %}"> Edit</a></p>
+    <p><a href="{% url 'core:gitlabapi.delete' object.pk %}"> Delete</a></p>
+{% endblock %}

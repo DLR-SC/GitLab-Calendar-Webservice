@@ -29,7 +29,7 @@ def permission_denied(request, exception):
 
 class GitLabAPIListView(ListView):
     model = GitLabAPI
-    template_name = 'gitlab_api_list.html'
+    template_name = 'gitlabapi_list.html'
 
     def get_queryset(self):
         user = get_object_or_404(User, pk=self.kwargs['pk'])
@@ -38,7 +38,7 @@ class GitLabAPIListView(ListView):
 
 class AllGitLabAPIListView(ListView):
     model = GitLabAPI
-    template_name = 'gitlab_api_list.html'
+    template_name = 'gitlabapi_list.html'
 
     def get_queryset(self):
         if self.request.user.is_superuser:
@@ -49,7 +49,7 @@ class AllGitLabAPIListView(ListView):
 
 class GitLabAPIDetailView(generic.DetailView):
     model = GitLabAPI
-    template_name = 'gitlab_api_detail.html'
+    template_name = 'gitlabapi_detail.html'
 
     def get_queryset(self):
         api = get_object_or_404(GitLabAPI, pk=self.kwargs['pk'])
