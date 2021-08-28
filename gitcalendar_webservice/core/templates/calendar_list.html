@@ -14,12 +14,13 @@
                 <td><a href="{% url 'core:calendar.detail' cal.pk %}">{{ cal.config_name}}</a></td>
                 <td>{{ cal.user }}</td>
                 <td>
-                    <a href="{% url 'core:calendar.update' cal.pk %}"> Edit</a>
+                    <a href="{% url 'core:calendar.update' cal.pk  %}"> Edit</a>
                     <a href="{% url 'core:calendar.delete' cal.pk %}"> Delete</a>
                 </td>
             </tr>
         {% endfor %}
     </table>
     <p><a href="{% url 'core:calendar.add' %}">Add Calendar Configuration </a></p>
+    <p><a href="{% url 'core:homesite' %}">Back to Home</a> </p>
     <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% endblock %}
