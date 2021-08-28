@@ -1,4 +1,14 @@
 <form method="post">{% csrf_token %}
     <p>Are you sure you want to delete "{{ object }}"?</p>
+    {% if object.get_related %}
+        <p>There are some related entries left that will be deleted if you confirm.</p>
+        <ol>
+            {% for cal in object.get_related %}
+                <li>{{ cal.config_name }}</li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+
     <input type="submit" value="Confirm">
+
 </form>
