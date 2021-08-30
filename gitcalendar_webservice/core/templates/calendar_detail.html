@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Calendar Configuration Detail</h2>
+
+    <table style="width: 20%">
+    <tr>
+        <th style="text-align:left">API name</th>
+        <td>{{ object.config_name }}</td>
+    </tr>
+    <tr>
+        <th style="text-align:left">User</th>
+        <td>{{ object.user.username }}</td>
+    </tr>
+    <tr>
+        <th style="text-align:left">API</th>
+        <td>{{ object.api }}</td>
+    </tr>
+    <tr>
+        <th style="text-align:left">Project list</th>
+        <td>{{ object.projects }}</td>
+    </tr>
+    <tr>
+        <th style="text-align:left">Group list</th>
+        <td>{{ object.groups }}</td>
+    </tr>
+    <tr>
+        <th style="text-align:left">Reminder</th>
+        <td>{{ object.reminder }}</td>
+    </tr>
+    <tr>
+        <th style="text-align:left">Only issues</th>
+        <td>{{ object.only_issues }}</td>
+    </tr>
+    <tr>
+        <th style="text-align:left">Only milestones</th>
+        <td>{{ object.only_milestones }}</td>
+    </tr>
+    <tr>
+        <th style="text-align:left">Combined Calendar</th>
+        <td>{{ object.combined }}</td>
+    </tr>
+    </table>
+
+    <p><a href="{% url 'core:calendar.update' object.pk %}"> Edit</a></p>
+    <p><a href="{% url 'core:calendar.delete' object.pk %}"> Delete</a></p>
+     <p><a href="{% url 'core:calendar.list' %}">Back to Calendar list </a></p>
+{% endblock %}
