@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import GitLabAPI, CalendarConfiguration
+from core.models import GitLabAPI, CalendarConfiguration
 
 
 class CalendarConfigurationInLine(admin.TabularInline):
@@ -36,4 +36,3 @@ class CalendarConfigurationAdmin(admin.ModelAdmin):
 
 admin.site.register(GitLabAPI, GitLabAPIAdmin)
 admin.site.register(CalendarConfiguration, CalendarConfigurationAdmin)
-# Register your models here.
