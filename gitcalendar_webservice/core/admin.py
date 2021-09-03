@@ -26,7 +26,7 @@ class CalendarConfigurationAdmin(admin.ModelAdmin):
         (None, {'fields': ['config_name', 'api', 'user', 'projects', 'groups']}),
         ('Further information', {
             'classes': ['collapse'],
-            'fields': ['only_issues', 'only_milestones', 'combined']
+            'fields': ['only_issues', 'only_milestones', 'reminder']
         })
     ]
     list_display = ('config_name', 'api', 'user')
