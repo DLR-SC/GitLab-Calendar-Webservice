@@ -133,6 +133,10 @@ LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+MEDIA_ROOT = str(BASE_DIR.joinpath('media'))
+MEDIA_URL = 'calendar/'
+
+DEFAULT_CHARSET = "utf-8"
 try:
     from gitcalendar_webservice.private_settings import *
 except ImportError:
