@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
     <h2>Calendar Configurations</h2>
 
@@ -16,6 +16,12 @@
                 <td>
                     <a href="{% url 'core:calendar.update' cal.pk  %}"> Edit</a>
                     <a href="{% url 'core:calendar.delete' cal.pk %}"> Delete</a>
+                    <a href="{% url 'core:ics.generate' cal.write_token %}">Trigger Calendar generation</a>
+                    {% if cal.file_exists %}
+                        <a href="{% url 'core:ics.show' cal.read_token cal.config_name %}.ics">Show File content</a>
+                        <a href="{{ cal.read_token }}/{{ cal.config_name }}.ics">Download File</a>
+                    {% endif %}
+
                 </td>
             </tr>
         {% endfor %}
