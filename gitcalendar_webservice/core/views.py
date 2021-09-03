@@ -1,14 +1,19 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from django.template import RequestContext
 from django.urls import reverse
-from django.views import generic
+from django.views import generic, View
 from core.models import GitLabAPI, CalendarConfiguration
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import ListView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import UserPassesTestMixin
+from gitcalendar.gitcalendar import converter
+from core.calendar_generator import generator
+from gitlab import GitlabGetError
+from django.conf import settings
+import mimetypes
 
 
 def is_same_user(user1, user2):
@@ -131,7 +136,7 @@ class CalendarConfigurationUpdateView(UserPassesTestMixin, generic.UpdateView):
     model = CalendarConfiguration
     template_name = 'calendar_form.html'
     fields = [
-        'config_name', 'api', 'projects', 'groups', 'only_issues', 'only_milestones', 'combined',
+        'config_name', 'api', 'projects', 'groups', 'only_issues', 'only_milestones'
     ]
 
     def test_func(self):
@@ -150,7 +155,7 @@ class CalendarConfigurationCreateView(generic.CreateView):
     model = CalendarConfiguration
     template_name = 'calendar_form.html'
     fields = [
-        'config_name', 'api', 'projects', 'groups', 'only_issues', 'only_milestones', 'combined',
+        'config_name', 'api', 'projects', 'groups', 'only_issues', 'only_milestones'
     ]
 
     # gets the apis which belong to the user
@@ -176,3 +181,25 @@ class CalendarConfigurationDeleteView(UserPassesTestMixin, generic.DeleteView):
 
     def get_success_url(self):
         return reverse('core:calendar.list')
+
+
+def calendar_generating(request, token=None):
+
+    try:
+        config = CalendarConfiguration.objects.get(write_token__exact=token) # write token
+        generator(config)
+        config.file_exists = True
+        config.save()
+        return HttpResponseRedirect(reverse('core:calendar.detail', args=[config.pk]))
+    except GitlabGetError as e:
+        response = render(request, '400.html', {'message': 'GitLab Authentication failed'})
+        response.status_code = 400
+        return response
+
+
+def show_file(request, token=None, filename=None):
+    path = settings.MEDIA_ROOT + "/" + str(token) + "/" + filename
+    with open(path, "r") as file:
+        content = file.read()
+
+    return HttpResponse(content, content_type="text/plain; encoding")
