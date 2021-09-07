@@ -307,3 +307,54 @@ class CalendarConfigurationViewTests(TestCase):
 
         response = self.client.post(reverse('core:calendar.delete', args=[1]))
         self.assertEqual(response.status_code, 403)
+
+
+class ICSFileCreationViews(TestCase):
+    def setUp(self) -> None:
+        User.objects.create_user('tester1', password='123')
+        GitLabAPI.objects.create(
+            user=User.objects.get(username='tester1'),
+            api_name='not valid api from tester1',
+            url='https://example.org/',
+            gitlab_api_token='mytesttoken'
+        )
+        CalendarConfiguration.objects.create(
+            user=User.objects.get(username='tester1'),
+            api_id=1,
+            config_name='config from tester1',
+            projects='28236929,abcd'
+        )
+        GitLabAPI.objects.create(
+            user=User.objects.get(username='tester1'),
+            api_name='valid api from tester1',
+            url='https://gitlab.com/',
+            gitlab_api_token='DhvrWaxnZ3S3bV1C7_sa'
+        )
+        CalendarConfiguration.objects.create(
+            user=User.objects.get(username='tester1'),
+            api_id=2,
+            config_name='valid_config_from_tester1',
+            projects='28236929'
+        )
+
+    def test_not_valid_config_not_logged_in(self):
+        config = CalendarConfiguration.objects.get(pk=1)
+        response = self.client.get(reverse('core:ics.generate', args=[config.write_token]))
+        self.assertEqual(response.status_code, 400)
+
+    def test_not_valid_config_logged_in(self):
+        result = self.client.login(username='tester1', password='123')
+        self.assertTrue(result)
+        config = CalendarConfiguration.objects.get(pk=1)
+        response = self.client.get(reverse('core:ics.generate', args=[config.write_token]))
+        self.assertEqual(response.status_code, 400)
+
+    def test_valid_config_not_logged_in(self):
+        config = CalendarConfiguration.objects.get(pk=2)
+        response = self.client.get(reverse('core:ics.generate', args=[config.write_token]))
+        self.assertURLEqual(reverse('core:ics.generate', args=[config.write_token]), (f'/ics/generate/{str(config.write_token)}/'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_get_ics_file_not_logged_in(self):
+        config = CalendarConfiguration.objects.get(pk=2)
+        self.assertURLEqual(reverse('core:ics.show', args=[config.read_token, config.config_name + '.ics']), (f'/ics/show/{str(config.read_token)}/{str(config.config_name)}.ics'))
