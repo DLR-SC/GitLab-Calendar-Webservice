@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib.auth.decorators import login_required
 from django.urls import path
 from django.views.generic.base import TemplateView
@@ -25,4 +27,7 @@ urlpatterns = [
     path('calendar/<int:pk>/edit', login_required(CalendarConfigurationUpdateView.as_view()), name='calendar.update'),
     path('calendar/<int:pk>/delete', login_required(CalendarConfigurationDeleteView.as_view()), name='calendar.delete'),
     path('calendar/add/', login_required(CalendarConfigurationCreateView.as_view()), name='calendar.add'),
+    path('ics/generate/<uuid:token>/', views.calendar_generating, name='ics.generate'),
+    path('ics/show/<uuid:token>/<str:filename>', views.show_file, name='ics.show'),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
