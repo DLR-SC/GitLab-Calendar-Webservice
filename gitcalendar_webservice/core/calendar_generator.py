@@ -1,8 +1,6 @@
 import gitlab
 from django.conf import settings
 from gitcalendar.gitcalendar import converter
-from django.http import HttpResponse
-from core.models import CalendarConfiguration
 
 
 def generator(configuration=None):

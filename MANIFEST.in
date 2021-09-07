@@ -4,7 +4,6 @@ include README.md
 exclude gitcalendar_webservice/gitcalendar_webservice/private_settings.py
 exclude .gitignore *.ini
 global-exclude __pycache__/*
-exclude gitcalendar_webservice/media*
 
 prune venv
 prune env

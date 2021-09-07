@@ -3,17 +3,15 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from django.template import RequestContext
 from django.urls import reverse
-from django.views import generic, View
+from django.views import generic
 from core.models import GitLabAPI, CalendarConfiguration
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import ListView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import UserPassesTestMixin
-from gitcalendar.gitcalendar import converter
 from core.calendar_generator import generator
 from gitlab import GitlabGetError, GitlabAuthenticationError
 from django.conf import settings
-import mimetypes
 
 
 def is_same_user(user1, user2):
@@ -178,7 +176,6 @@ class CalendarConfigurationDeleteView(UserPassesTestMixin, generic.DeleteView):
 
 
 def calendar_generating(request, token=None):
-
     try:
         config = CalendarConfiguration.objects.get(write_token__exact=token)
         generator(config)
