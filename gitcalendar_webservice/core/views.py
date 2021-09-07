@@ -11,7 +11,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import UserPassesTestMixin
 from gitcalendar.gitcalendar import converter
 from core.calendar_generator import generator
-from gitlab import GitlabGetError
+from gitlab import GitlabGetError, GitlabAuthenticationError
 from django.conf import settings
 import mimetypes
 
@@ -36,12 +36,9 @@ def not_found(request, exception):
     """
     Shortcut view to render the default 404 site.
     """
-    response = render(
-        '404.html',
-        RequestContext(request)
-    )
+    response = render('404.html',
+                      RequestContext(request))
     response.status_code = 404
-
     return response
 
 
@@ -49,12 +46,9 @@ def permission_denied(request, exception):
     """
     Shortcut view to render the default 403 site
     """
-    response = render(
-        '403.html',
-        RequestContext(request)
-    )
+    response = render('403.html',
+                      RequestContext(request))
     response.status_code = 403
-
     return response
 
 
@@ -186,20 +180,26 @@ class CalendarConfigurationDeleteView(UserPassesTestMixin, generic.DeleteView):
 def calendar_generating(request, token=None):
 
     try:
-        config = CalendarConfiguration.objects.get(write_token__exact=token) # write token
+        config = CalendarConfiguration.objects.get(write_token__exact=token)
         generator(config)
         config.file_exists = True
         config.save()
         return HttpResponseRedirect(reverse('core:calendar.detail', args=[config.pk]))
     except GitlabGetError as e:
-        response = render(request, '400.html', {'message': 'GitLab Authentication failed'})
+        response = render(request, 'error.html', {'heading': '400 Bad request', 'message': 'GitLab Authentication failed'})
         response.status_code = 400
+        return response
+    except GitlabAuthenticationError as e:
+        response = render(request, 'error.html', {'heading': '401 Unauthorized', 'message': 'GitLab Authentication failed'})
+        response.status_code = 401
         return response
 
 
 def show_file(request, token=None, filename=None):
-    path = settings.MEDIA_ROOT + "/" + str(token) + "/" + filename
-    with open(path, "r") as file:
-        content = file.read()
-
-    return HttpResponse(content, content_type="text/plain; encoding")
+    try:
+        path = settings.MEDIA_ROOT + "/" + str(token) + "/" + filename
+        with open(path, "r") as file:
+            content = file.read()
+        return HttpResponse(content, content_type="text/plain; encoding")
+    except Exception as e:
+        pass
