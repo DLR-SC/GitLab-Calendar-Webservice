@@ -4,9 +4,11 @@
 
 {% block content %}
 {% if user.is_authenticated %}
+    <div class="row justify-content-center">
     <h4>Hi {{ user.username }}!</h4>
     <p><a href="{% url 'core:gitlabapi.list' %}">Manage Your GitLab API Configurations</a></p>
     <p><a href="{% url 'core:calendar.list' %}">Manage Your Calendar Configurations</a></p>
+    </div>
     {% if user.is_superuser %}
         <h4>Admin functionalities</h4>
         <p><a href="{% url 'admin:index' %}">Go to admin panel</a></p>
