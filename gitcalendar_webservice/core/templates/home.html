@@ -2,21 +2,30 @@
 {% load static %}
 {% block title %}GitCalendar Webservice{% endblock %}
 
+
 {% block content %}
-{% if user.is_authenticated %}
-    <div class="row justify-content-center">
-    <h4>Hi {{ user.username }}!</h4>
-    <p><a href="{% url 'core:gitlabapi.list' %}">Manage Your GitLab API Configurations</a></p>
-    <p><a href="{% url 'core:calendar.list' %}">Manage Your Calendar Configurations</a></p>
+    <div class="card position-absolute top-50 start-50 translate-middle" style="width: 20rem; background: #ca6410" >
+    <img src="../static/images/logo.png" class="card-img-top" alt="..." style="padding: 10px">
+        {% if user.is_authenticated %}
+            <div class="card-body">
+                <h4 class="card-title">Hi {{ user.username }}!</h4>
+                <p><a href="{% url 'core:gitlabapi.list' %}" class="btn btn-dark">Manage Your GitLab API Configurations</a></p>
+                <p><a href="{% url 'core:calendar.list' %}" class="btn btn-dark">Manage Your Calendar Configurations</a></p>
+            </div>
+
+            {% if user.is_superuser %}
+                <div class="card-body">
+                <h4 class="card-text">Admin functionalities</h4>
+                <p><a href="{% url 'admin:index' %}" class="btn btn-dark">Go to admin panel</a></p>
+                </div>
+            {% endif %}
+            <p><a href="{% url 'logout' %}" class="btn btn-light">Log Out</a></p>
+        {% else %}
+            <div class="card-body">
+          <h5 class="card-title">You are not logged in</h5>
+            <p><a href="{% url 'login' %}" class="btn btn-dark">Log In</a></p>
+            <p><a href="{% url 'core:signup' %}" class="btn btn-dark">Sign up</a></p>
+            </div>
+        {% endif %}
     </div>
-    {% if user.is_superuser %}
-        <h4>Admin functionalities</h4>
-        <p><a href="{% url 'admin:index' %}">Go to admin panel</a></p>
-    {% endif %}
-    <p><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %}
-  <p>You are not logged in</p>
-    <p><a href="{% url 'login' %}">Log In</a></p>
-    <p><a href="{% url 'core:signup' %}">Sign up</a></p>
-{% endif %}
 {% endblock %}

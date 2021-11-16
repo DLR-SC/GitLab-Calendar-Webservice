@@ -1,17 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="card position-absolute top-50 start-50 translate-middle" style="width: 20rem; background: #ca6410" >
+<img src="../../static/images/logo.png" class="card-img-top" alt="..." style="padding: 10px">
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+    {% if form.errors %}
+       <div class="card-body">
+<p class="card-text">Your username and password didn't match. Please try again.</p>
+       </div>
 {% endif %}
 
 {% if next %}
     {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
+       <div class="card-body">
+    <p class="card-text">Your account doesn't have access to this page. To proceed,
     please login with an account that has access.</p>
+       </div>
     {% else %}
-    <p>Please login to see this page.</p>
+        <div class="card-body">
+    <p class="card-text">Please login to see this page.</p>
+        </div>
     {% endif %}
 {% endif %}
 
@@ -28,11 +36,12 @@
 </tr>
 </table>
 
-<input type="submit" value="login">
+<input type="submit" value="login" class="btn btn-dark" style="margin: 5px">
 <input type="hidden" name="next" value="{{ next }}">
 </form>
 
 {# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+<p><a href="{% url 'password_reset' %}" class="btn btn-outline-dark btn-sm" style="margin: 5px" >Lost password?</a></p>
 
 {% endblock %}
+</div>
