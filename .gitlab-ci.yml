@@ -13,6 +13,7 @@ setup:
     - pip install .
     - cd gitcalendar_webservice
     - cp gitcalendar_webservice/private_settings.py.example gitcalendar_webservice/private_settings.py
+    - python manage.py collectstatic
     - python manage.py migrate
   tags:
     - docker
@@ -24,6 +25,7 @@ tests:
     - pip install .
     - cd gitcalendar_webservice
     - cp gitcalendar_webservice/private_settings.py.example gitcalendar_webservice/private_settings.py
+    - python manage.py collectstatic
     - python manage.py test
   tags:
     - docker
