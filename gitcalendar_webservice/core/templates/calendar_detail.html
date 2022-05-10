@@ -4,9 +4,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background: #ca6410">
         <div class="container-fluid">
             <a class="navbar-brand m-1" href="#">
-                <img src="../static/images/DLR_Signet_weiss.png" alt="" width="40"
-                     class="d-inline-block align-text-top me-3">
-                Calendar Configurations
+                Calendar APIs
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,20 +41,14 @@
 
 
 
-    <h2 style="margin-top: 10px">Calendar Configuration Detail<a class="me-3" aria-current="page" href="{% url 'core:calendar.add' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f8f9fa"
-                         class="bi bi-plus-circle-fill ms-2" viewBox="0 0 16 16">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                    </svg></a></h2>
+    <h2 style="margin-top: 10px">Calendar Detail</h2>
 
     <table style="width: 50%">
         <tr>
             <th style="text-align:left">API name</th>
             <td>{{ object.config_name }}</td>
         </tr>
-        <tr>
-            <th style="text-align:left">User</th>
-            <td>{{ object.user.username }}</td>
-        </tr>
+
         <tr>
             <th style="text-align:left">API</th>
             <td>{{ object.api }}</td>
@@ -89,13 +81,13 @@
             <th style="text-align:left">Read Token</th>
             <td>{{ object.read_token }}</td>
         </tr>
-        <tr>
-            <th style="text-align:left">ICS file exists</th>
-            <td>{{ object.file_exists }}</td>
-        </tr>
+
     </table>
-    <a href="{% url 'core:ics.generate' object.write_token %}" class="btn btn-light btn-sm">Trigger Calendar
-        generation</a>
+    <a href="{% url 'core:ics.generate' object.write_token %}" class="btn btn-light btn-sm">trigger
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-activity" viewBox="0 0 16 16">
+               <path fill-rule="evenodd" d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2Z"/>
+        </svg>
+    </a>
     <a href="{% url 'core:calendar.update' object.pk %}" class="btn btn-light btn-sm m-1">
         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor"
              class="bi bi-pencil" viewBox="0 0 16 16">
@@ -112,10 +104,18 @@
     </a>
 
     {% if object.file_exists %}
-        <a href="{% url 'core:ics.show' object.read_token object.config_name %}.ics" class="btn btn-secondary btn-sm">Show
-            File content</a>
-        <a href="../{{ object.read_token }}/{{ object.config_name }}.ics" class="btn btn-secondary btn-sm">Download
-            File</a>
+{#        Show File content#}
+        <a href="{% url 'core:ics.show' object.read_token object.config_name %}.ics" class="btn btn-light btn-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-body-text" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 0 .5Zm0 2A.5.5 0 0 1 .5 2h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm9 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-9 2A.5.5 0 0 1 .5 4h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm5 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm-12 2A.5.5 0 0 1 .5 6h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm8 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-8 2A.5.5 0 0 1 .5 8h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm-7 2a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Z"/>
+            </svg>
+        </a>
+        <a href="../{{ object.read_token }}/{{ object.config_name }}.ics" class="btn btn-light btn-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+            </svg>
+        </a>
     {% endif %}
     <p><a href="{% url 'core:calendar.list' %}" class="btn btn-secondary btn-sm">Back to Calendar list </a></p>
 {% endblock %}

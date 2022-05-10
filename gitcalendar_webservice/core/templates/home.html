@@ -4,8 +4,8 @@
 
 
 {% block content %}
-    <div class="card position-absolute top-50 start-50 translate-middle" style="width: 20rem; background: #ca6410" >
-    <img src="../static/images/logo.png" class="card-img-top" alt="..." style="padding: 10px">
+    <div class="card position-absolute top-50 start-50 translate-middle" style="width: 20rem; background: #ca6410; padding: 10px" >
+    {# <img src="../static/images/logo.png" class="card-img-top" alt="..." style="padding: 10px">#}
         {% if user.is_authenticated %}
             <div class="card-body">
                 <h4 class="card-title">Hi {{ user.username }}!</h4>
@@ -15,7 +15,7 @@
 
             {% if user.is_superuser %}
                 <div class="card-body">
-                <h4 class="card-text">Admin functionalities</h4>
+                {#<h4 class="card-text">Admin functionalities</h4>#}
                 <p><a href="{% url 'admin:index' %}" class="btn btn-dark">Go to admin panel</a></p>
                 </div>
             {% endif %}

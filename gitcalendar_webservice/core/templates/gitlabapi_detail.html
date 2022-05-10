@@ -4,9 +4,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background: #ca6410">
         <div class="container-fluid">
             <a class="navbar-brand m-1" href="#">
-                <img src="../static/images/DLR_Signet_weiss.png" alt="" width="40"
-                     class="d-inline-block align-text-top me-3">
-                GitLab APIs
+                APIs
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,28 +39,19 @@
         </div>
     </nav>
 
-    <h2>GitLab API Detail<a class="me-3" aria-current="page" href="{% url 'core:gitlabapi.add' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f8f9fa"
-                         class="bi bi-plus-circle-fill ms-2" viewBox="0 0 16 16">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                    </svg></a></h2>
+    <h2>API Detail</h2>
 
     <table style="width: 50%">
     <tr>
         <th style="text-align:left">API name</th>
         <td>{{ object.api_name }}</td>
     </tr>
-    <tr>
-        <th style="text-align:left">User</th>
-        <td>{{ object.user.username }}</td>
-    </tr>
+
     <tr>
         <th style="text-align:left">URL</th>
         <td>{{ object.url }}</td>
     </tr>
-    <tr>
-        <th style="text-align:left">GitLab API token</th>
-        <td>{{ object.gitlab_api_token }}</td>
-    </tr>
+
     </table>
 
     <a href="{% url 'core:gitlabapi.update' object.pk %}" class="btn btn-light btn-sm m-1">
