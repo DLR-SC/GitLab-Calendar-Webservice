@@ -1,28 +1,73 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>GitLab API Detail</h2>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: #ca6410">
+        <div class="container-fluid">
+            <a class="navbar-brand m-1" href="#">
+                APIs
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'core:homesite' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor"
+                                 class="bi bi-house-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                                <path fill-rule="evenodd"
+                                      d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor"
+                                 class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                                <path fill-rule="evenodd"
+                                      d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <table style="width: 20%">
+    <h2>API Detail</h2>
+
+    <table style="width: 50%">
     <tr>
         <th style="text-align:left">API name</th>
         <td>{{ object.api_name }}</td>
     </tr>
-    <tr>
-        <th style="text-align:left">User</th>
-        <td>{{ object.user.username }}</td>
-    </tr>
+
     <tr>
         <th style="text-align:left">URL</th>
         <td>{{ object.url }}</td>
     </tr>
-    <tr>
-        <th style="text-align:left">GitLab API token</th>
-        <td>{{ object.gitlab_api_token }}</td>
-    </tr>
+
     </table>
 
-    <p><a href="{% url 'core:gitlabapi.update' object.pk %}"> Edit</a></p>
-    <p><a href="{% url 'core:gitlabapi.delete' object.pk %}"> Delete</a></p>
-    <p><a href="{% url 'core:gitlabapi.list' %}">Back to Calendar list </a></p>
+    <a href="{% url 'core:gitlabapi.update' object.pk %}" class="btn btn-light btn-sm m-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor"
+             class="bi bi-pencil" viewBox="0 0 16 16">
+            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+        </svg>
+    </a>
+    <a href="{% url 'core:gitlabapi.delete' object.pk %}" class="btn btn-light btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor"
+             class="bi bi-trash" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+            <path fill-rule="evenodd"
+                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+        </svg>
+    </a>
+    <p><a href="{% url 'core:gitlabapi.list' %}" class="btn btn-secondary btn-sm">Back to Calendar list </a></p>
+
 {% endblock %}

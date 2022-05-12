@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form method="post">{% csrf_token %}
+    <div class="card position-absolute top-50 start-50 translate-middle" style="width: auto; background: #ca6410" >
+    <form class="card-body" style="background: #ca6410; color: white" method="post">{% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" value="Save">
+            <input class="btn btn-light" type="submit" value="Save">
     </form>
+    </div>
 {% endblock %}
